@@ -1,0 +1,25 @@
+<!-- templates/blog/view_post.html -->
+
+{% extends 'base.html' %} {% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+<h2>Comments</h2>
+{% if comments %}
+<ul>
+  {% for comment in comments %}
+  <li>{{ comment.author }} says: {{ comment.text }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No comments yet.</p>
+{% endif %}
+
+<h3>Add a Comment</h3>
+<form method="post">
+  {% csrf_token %} {{ comment_form.as_p }}
+  <button type="submit">Submit Comment</button>
+</form>
+
+<a href="{% url 'blog_home' %}">Back to Blog Posts</a>
+{% endblock %}
